@@ -6,3 +6,4 @@ class LancamentoForm(forms.ModelForm):
     class Meta:
         model = Lancamento
         fields = '__all__'
+        exclude = ['data_pagamento']

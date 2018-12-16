@@ -34,4 +34,7 @@ urlpatterns = [
     url(r'^pesquisa-lancamento/$', lancamento_views.pesquisar_lancamento, name='pesquisar_lancamento'),
     url(r'^cadastro-lancamento/(?P<pk>[0-9]+)/editar/$', lancamento_views.editar_lancamento, name='editar_lancamento'),
     url(r'^cadastro-lancamento/(?P<pk>[0-9]+)/delete/$', lancamento_views.excluir_lancamento, name='deletar_lancamento'),
+    # Faturar Lancamentos
+    url(r'^listar-lancamentos/$', lancamento_views.listar_lancamentos, name='listar_lancamento'),
+    url(r'^faturar/(?P<pk>[0-9]+)/lancamento/$', lancamento_views.faturar_lancamento, name='faturar_lancamento'),
 ]

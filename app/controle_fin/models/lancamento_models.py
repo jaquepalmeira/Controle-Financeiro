@@ -27,6 +27,7 @@ class Lancamento(models.Model):
     observacao = models.TextField(max_length=1000, blank=True, null=True)
     tipo_lancamento = models.ForeignKey(TipoLancamento, on_delete=models.PROTECT)
     status_lancamento = models.ForeignKey(StatusLancamento, on_delete=models.PROTECT)
+    data_pagamento = models.DateField(blank=True, null=True)
 
     def __str__(self):
         return self.descricao
