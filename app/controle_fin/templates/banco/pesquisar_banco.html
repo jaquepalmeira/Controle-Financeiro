@@ -1,0 +1,124 @@
+{% extends 'base/base.html' %}
+{% load app_extras %}
+
+{% block title %}
+    Pesquisa | Banco
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2>Bancos</h2>
+            </div>
+            <div class="panel-body">
+                <form method="get" id="pesquisaForm">
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <label>Código</label>
+                            <input type="text" class="form-control" name="codigo" id="id_codigo_banco"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label>Nome do Banco</label>
+                            <input type="text" class="form-control" name="nome_banco" id="id_nome_banco" placeholder="Nome do Banco"/>
+                        </div>
+                    </div>
+
+                    <nav class="nav-fill">
+                        <div class="form-group">
+                            <button id="btn-pesquisa" class="btn btn-primary" type="submit">
+                                <span class="glyphicon glyphicon-search"></span>
+                                Pesquisar
+                            </button>
+                            <a id="btn-limpar" class="btn btn-danger" href="{% url 'controle_fin:pesquisar_banco' %}">
+                                <span class="glyphicon glyphicon-refresh"></span>
+                                Limpar Pesquisa
+                            </a>
+                            <a href="{% url 'controle_fin:cadastrar_banco' %}" class="btn btn-info">
+                                <span class="glyphicon glyphicon-plus"></span>
+                                Cadastrar Banco
+                            </a>
+                        </div>
+                    </nav>
+
+                </form>
+                <hr>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th class="text-center">Codigo do Banco</th>
+                        <th class="text-center">Nome do Banco</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Ação</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for banco in bancos %}
+                        <tr>
+                            <td class="text-center">{{ banco.id }}</td>
+                            <td class="text-center">{{ banco.codigo }}</td>
+                            <td>{{ banco.nome_banco }}</td>
+                            <td class="text-center">{{ banco.status }}</td>
+                            <td class="text-center">
+                                <a class="btn btn-sm btn-success" href="{% url 'controle_fin:editar_banco' pk=banco.pk %}">
+                                    <span class="glyphicon glyphicon-pencil text-center"></span>
+                                </a>
+
+                                <a class="btn btn-sm btn-danger" href="{% url 'controle_fin:deletar_banco' pk=banco.pk %}">
+                                    <span class="glyphicon glyphicon-trash text-center"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <!-- Paginação -->
+                {% if bancos.has_other_pages %}
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            {% if bancos.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" aria-label="Previous" href="?page={{ bancos.previous_page_number }}">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled"><span aria-hidden="true">&laquo;</span></li>
+                            {% endif %}
+                            {% for i in bancos.paginator.page_range %}
+                                {% if bancos.number == i %}
+                                    <li class="page-item active">
+                                        <a class="page-link" href="#">{{ i }}
+                                            <span class="sr-only">(current)</span>
+                                        </a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if bancos.has_next %}
+                                <li class="page-item"><a class="page-link" href="?page={{ bancos.next_page_number }}">&raquo;</a></li>
+                            {% else %}
+                                <li class="page-item disabled"><span>&raquo;</span></li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                {% endif %}
+            <div class="form-group">
+                {% for i in bancos.paginator.page_range %}
+                    {% if bancos.number == i %}
+                        <p>Página: {{ i }} de {{ bancos.paginator.num_pages }}</p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <!-- Fim Paginação -->
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

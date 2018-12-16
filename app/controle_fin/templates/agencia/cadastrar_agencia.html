@@ -1,0 +1,60 @@
+{% extends 'base/base.html' %}
+{% load app_extras %}
+
+{% block title %}
+    Cadastro | Agência
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2>Cadastro - Agência</h2>
+            </div>
+            <div class="panel-body">
+                <form method="post" id="cadastroAgenciaForm" role="form">{% csrf_token %}
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <label>Banco</label>
+                            {{ form.banco|addcss:"form-control" }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <label>Código</label>
+                            {{ form.codigo_agencia|addcss:"form-control" }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label>Nome da Agência</label>
+                            {{ form.nome_agencia|addcss:"form-control" }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <label>Status</label>
+                            {{ form.status|addcss:"form-control" }}
+                        </div>
+                    </div>
+                    <nav class="nav-fill">
+                        <div class="form-group">
+                            <button id="btn-save" class="btn btn-success" type="submit">
+                                <span class="glyphicon glyphicon-floppy-disk"></span>
+                                Gravar
+                            </button>
+                            <a class="btn btn-primary" href="{% url 'controle_fin:pesquisar_agencia' %}">
+                                <span class="glyphicon glyphicon-arrow-left"></span>
+                                Voltar
+                            </a>
+                        </div>
+                    </nav>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

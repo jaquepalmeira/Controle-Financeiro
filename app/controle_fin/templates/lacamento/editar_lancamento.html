@@ -1,0 +1,78 @@
+{% extends 'base/base.html' %}
+{% load app_extras %}
+
+{% block title %}
+    Edição | Lançamentos
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2>Editar - Lançamento</h2>
+            </div>
+            <div class="panel-body">
+                <form method="post" id="cadastroLancamentoForm" role="form">{% csrf_token %}
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label>Cliente/Conta</label>
+                            {{ form.conta_cliente|addcss:"form-control" }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <label>Descrição</label>
+                            {{ form.descricao|addcss:"form-control" }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <label>Data do Lançamento</label>
+                            {{ form.data_lancamento|addcss:"form-control" }}
+                        </div>
+
+                        <div class="col-md-4">
+                            <label>Valor</label>
+                            {{ form.valor|addcss:"form-control" }}
+                        </div>
+
+                        <div class="col-md-4">
+                            <label>Tipo de Lançamento</label>
+                            {{ form.tipo_lancamento|addcss:"form-control" }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label>Observação</label>
+                            {{ form.observacao|addcss:"form-control" }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <label>Status do Lançamento</label>
+                            {{ form.status_lancamento|addcss:"form-control" }}
+                        </div>
+                    </div>
+
+                    <nav class="nav-fill">
+                        <div class="form-group">
+                            <button id="btn-save" class="btn btn-success" type="submit">
+                                <span class="glyphicon glyphicon-floppy-disk"></span>
+                                Gravar
+                            </button>
+                            <a class="btn btn-danger" href="{% url 'controle_fin:pesquisar_lancamento' %}">
+                                <span class="glyphicon glyphicon-floppy-remove"></span>
+                                Cancelar
+                            </a>
+                        </div>
+                    </nav>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

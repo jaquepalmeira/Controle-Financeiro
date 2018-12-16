@@ -1,0 +1,173 @@
+[
+
+  {
+    "model": "controle_fin.StatusCadastro",
+    "pk": 1,
+    "fields": {
+      "status": "Ativo"
+    }
+  },
+  {
+    "model": "controle_fin.StatusCadastro",
+    "pk": 2,
+    "fields": {
+      "status": "Inativo"
+    }
+  },
+
+
+  {
+    "model": "controle_fin.TipoConta",
+    "pk": 1,
+    "fields": {
+      "tipo_conta": "Conta Corrente"
+    }
+  },
+  {
+    "model": "controle_fin.TipoConta",
+    "pk": 2,
+    "fields": {
+      "tipo_conta": "Conta Poupança"
+    }
+  },
+
+
+  {
+    "model": "controle_fin.Banco",
+    "pk": 1,
+    "fields": {
+      "codigo": "001",
+      "nome_banco": "Banco do Brasil S.A.",
+      "status_id": 1
+    }
+  },
+  {
+    "model": "controle_fin.Banco",
+    "pk": 2,
+    "fields": {
+      "codigo": "341",
+      "nome_banco": "Banco Itaú S.A.",
+      "status_id": 1
+    }
+  },
+  {
+    "model": "controle_fin.Banco",
+    "pk": 3,
+    "fields": {
+      "codigo": "033",
+      "nome_banco": "Banco Santander (Brasil) S.A.",
+      "status_id": 1
+    }
+  },
+  {
+    "model": "controle_fin.Banco",
+    "pk": 4,
+    "fields": {
+      "codigo": "356",
+      "nome_banco": "Banco Real S.A. (antigo)",
+      "status_id": 1
+    }
+  },
+  {
+    "model": "controle_fin.Banco",
+    "pk": 5,
+    "fields": {
+      "codigo": "652",
+      "nome_banco": "Itaú Unibanco Holding S.A.",
+      "status_id": 1
+    }
+  },
+  {
+    "model": "controle_fin.Banco",
+    "pk": 6,
+    "fields": {
+      "codigo": "652",
+      "nome_banco": "Banco Bradesco S.A.",
+      "status_id": 1
+    }
+  },
+  {
+    "model": "controle_fin.Banco",
+    "pk": 7,
+    "fields": {
+      "codigo": "745",
+      "nome_banco": "Banco Citibank S.A.",
+      "status_id": 1
+    }
+  },
+  {
+    "model": "controle_fin.Banco",
+    "pk": 8,
+    "fields": {
+      "codigo": "399",
+      "nome_banco": "HSBC Bank Brasil S.A. – Banco Múltiplo",
+      "status_id": 1
+    }
+  },
+  {
+    "model": "controle_fin.Banco",
+    "pk": 9,
+    "fields": {
+      "codigo": "104",
+      "nome_banco": "Caixa Econômica Federal",
+      "status_id": 1
+    }
+  },
+  {
+    "model": "controle_fin.Banco",
+    "pk": 10,
+    "fields": {
+      "codigo": "389",
+      "nome_banco": "Banco Mercantil do Brasil S.A.",
+      "status_id": 1
+    }
+  },
+  {
+    "model": "controle_fin.Banco",
+    "pk": 11,
+    "fields": {
+      "codigo": "453",
+      "nome_banco": "Banco Rural S.A.",
+      "status_id": 1
+    }
+  },
+  {
+    "model": "controle_fin.Banco",
+    "pk": 12,
+    "fields": {
+      "codigo": "422",
+      "nome_banco": "Banco Safra S.A.",
+      "status_id": 1
+    }
+  },
+  {
+    "model": "controle_fin.Banco",
+    "pk": 13,
+    "fields": {
+      "codigo": "633",
+      "nome_banco": "Banco Rendimento S.A.",
+      "status_id": 1
+    }
+  },
+  {
+    "model": "controle_fin.StatusLancamento",
+    "pk": 1,
+    "fields": {
+      "status_lancamento": "Em aberto"
+    }
+  },
+  {
+    "model": "controle_fin.StatusLancamento",
+    "pk": 2,
+    "fields": {
+      "status_lancamento": "Vencido"
+    }
+  },
+  {
+    "model": "controle_fin.StatusLancamento",
+    "pk": 3,
+    "fields": {
+      "status_lancamento": "Faturado"
+    }
+  }
+]

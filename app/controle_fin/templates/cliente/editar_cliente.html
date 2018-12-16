@@ -1,0 +1,79 @@
+{% extends 'base/base.html' %}
+{% load app_extras %}
+
+{% block title %}
+    Edição | Cliente
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2>Editar - Cliente</h2>
+            </div>
+            <div class="panel-body">
+                <form method="post" id="cadastroClienteForm" role="form">{% csrf_token %}
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label>Nome do Cliente</label>
+                            {{ form.nome|addcss:"form-control" }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <label>Data de Nascimento</label>
+                            {{ form.data_nascimento|addcss:"form-control" }}
+                        </div>
+
+                        <div class="col-md-8">
+                            <label>Email</label>
+                            {{ form.email|addcss:"form-control" }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <label>Agencia</label>
+                            {{ form.agencia|addcss:"form-control" }}
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Tipo de Conta</label>
+                            {{ form.tipo_conta|addcss:"form-control" }}
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Conta Corrente</label>
+                            {{ form.numero_conta|addcss:"form-control" }}
+                        </div>
+
+                        <div class="col-md-2">
+                            <label>DV</label>
+                            {{ form.dv_conta|addcss:"form-control" }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <label>Status</label>
+                            {{ form.status|addcss:"form-control" }}
+                        </div>
+                    </div>
+                    <nav class="nav-fill">
+                        <div class="form-group">
+                            <button id="btn-save" class="btn btn-success" type="submit">
+                                <span class="glyphicon glyphicon-floppy-disk"></span>
+                                Gravar
+                            </button>
+                            <a class="btn btn-danger" href="{% url 'controle_fin:pesquisar_cliente' %}">
+                                <span class="glyphicon glyphicon-floppy-remove"></span>
+                                Cancelar
+                            </a>
+                        </div>
+                    </nav>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

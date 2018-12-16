@@ -1,0 +1,123 @@
+{% extends 'base/base.html' %}
+{% load app_extras %}
+
+{% block title %}
+    Pesquisa | Lançamentos
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2>Lançamentos</h2>
+            </div>
+            <div class="panel-body">
+                <form method="get" id="pesquisaForm">
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <label>Descrição</label>
+                            <input type="text" class="form-control" name="descricao" id="id_descricao" placeholder="Descrição do Lançamento"/>
+                        </div>
+                    </div>
+
+                    <nav class="nav-fill">
+                        <div class="form-group">
+                            <button id="btn-pesquisa" class="btn btn-primary" type="submit">
+                                <span class="glyphicon glyphicon-search"></span>
+                                Pesquisar
+                            </button>
+                            <a id="btn-limpar" class="btn btn-danger" href="{% url 'controle_fin:pesquisar_lancamento' %}">
+                                <span class="glyphicon glyphicon-refresh"></span>
+                                Limpar Pesquisa
+                            </a>
+                            <a href="{% url 'controle_fin:cadastrar_lancamento' %}" class="btn btn-info">
+                                <span class="glyphicon glyphicon-plus"></span>
+                                Cadastrar Lançamento
+                            </a>
+                        </div>
+                    </nav>
+
+                </form>
+                <hr>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th class="text-center">Conta/Cliente</th>
+                        <th class="text-center">Descrição</th>
+                        <th class="text-center">Valor</th>
+                        <th class="text-center">Data de Vencimento</th>
+                        <th class="text-center">Fatura</th>
+                        <th class="text-center">Tipo de Lançamento</th>
+                        <th class="text-center">Ação</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for lancamento in lancamentos %}
+                        <tr>
+                            <td class="text-center">{{ lancamento.id }}</td>
+                            <td>{{ lancamento.conta_cliente }}</td>
+                            <td>{{ lancamento.descricao }}</td>
+                            <td class="text-center"><strong>R$</strong>     {{ lancamento.valor }}</td>
+                            <td>{{ lancamento.data_vencimento }}</td>
+                            <td>{{ lancamento.status_lancamento }}</td>
+                            <td id="debito_credito">{{ lancamento.tipo_lancamento }}</td>
+                            <td class="text-center">
+                                <a class="btn btn-sm btn-success" href="{% url 'controle_fin:editar_lancamento' pk=lancamento.pk %}">
+                                    <span class="glyphicon glyphicon-pencil text-center"></span>
+                                </a>
+
+                                <a class="btn btn-sm btn-danger" href="{% url 'controle_fin:deletar_lancamento' pk=lancamento.pk %}">
+                                    <span class="glyphicon glyphicon-trash text-center"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <!-- Paginação -->
+                {% if lancamentos.has_other_pages %}
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            {% if lancamentos.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" aria-label="Previous" href="?page={{ lancamentos.previous_page_number }}">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled"><span aria-hidden="true">&laquo;</span></li>
+                            {% endif %}
+                            {% for i in lancamentos.paginator.page_range %}
+                                {% if lancamentos.number == i %}
+                                    <li class="page-item active">
+                                        <a class="page-link" href="#">{{ i }}
+                                            <span class="sr-only">(current)</span>
+                                        </a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if lancamentos.has_next %}
+                                <li class="page-item"><a class="page-link" href="?page={{ lancamentos.next_page_number }}">&raquo;</a></li>
+                            {% else %}
+                                <li class="page-item disabled"><span>&raquo;</span></li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                {% endif %}
+            <div class="form-group">
+                {% for i in lancamentos.paginator.page_range %}
+                    {% if lancamentos.number == i %}
+                        <p>Página: {{ i }} de {{ lancamentos.paginator.num_pages }}</p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <!-- Fim Paginação -->
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

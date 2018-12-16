@@ -1,0 +1,125 @@
+{% extends 'base/base.html' %}
+{% load app_extras %}
+
+{% block title %}
+    Pesquisa | Cliente
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2>Clientes</h2>
+            </div>
+            <div class="panel-body">
+                <form method="get" id="pesquisaClienteForm">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label>Nome do Cliente</label>
+                            <input type="text" class="form-control" name="nome" id="id_nome" placeholder="Nome do Cliente"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <label>Email</label>
+                            <input type="text" class="form-control" name="email" id="id_email" placeholder="Email do Cliente"/>
+                        </div>
+                    </div>
+
+                    <nav class="nav-fill">
+                        <div class="form-group">
+                            <button id="btn-pesquisa" class="btn btn-primary" type="submit">
+                                <span class="glyphicon glyphicon-search"></span>
+                                Pesquisar
+                            </button>
+                            <a id="btn-limpar" class="btn btn-danger" href="{% url 'controle_fin:pesquisar_cliente' %}">
+                                <span class="glyphicon glyphicon-refresh"></span>
+                                Limpar Pesquisa
+                            </a>
+                            <a href="{% url 'controle_fin:cadastrar_cliente' %}" class="btn btn-info">
+                                <span class="glyphicon glyphicon-plus"></span>
+                                Cadastrar Cliente
+                            </a>
+                        </div>
+                    </nav>
+
+                </form>
+                <hr>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th class="text-center">Nome do Cliente</th>
+                        <th class="text-center">Agência</th>
+                        <th class="text-center">Conta</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Ação</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for cliente in clientes %}
+                        <tr>
+                            <td class="text-center">{{ cliente.id }}</td>
+                            <td>{{ cliente.nome }}</td>
+                            <td>{{ cliente.agencia }}</td>
+                            <td>{{ cliente.numero_conta }}-{{ cliente.dv_conta }}</td>
+                            <td class="text-center">{{ cliente.status }}</td>
+                            <td class="text-center">
+                                <a class="btn btn-sm btn-success" href="{% url 'controle_fin:editar_cliente' pk=cliente.pk %}">
+                                    <span class="glyphicon glyphicon-pencil text-center"></span>
+                                </a>
+
+                                <a class="btn btn-sm btn-danger" href="{% url 'controle_fin:deletar_cliente' pk=cliente.pk %}">
+                                    <span class="glyphicon glyphicon-trash text-center"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <!-- Paginação -->
+                {% if clientes.has_other_pages %}
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            {% if clientes.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" aria-label="Previous" href="?page={{ clientes.previous_page_number }}">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled"><span aria-hidden="true">&laquo;</span></li>
+                            {% endif %}
+                            {% for i in clientes.paginator.page_range %}
+                                {% if clientes.number == i %}
+                                    <li class="page-item active">
+                                        <a class="page-link" href="#">{{ i }}
+                                            <span class="sr-only">(current)</span>
+                                        </a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if clientes.has_next %}
+                                <li class="page-item"><a class="page-link" href="?page={{ clientes.next_page_number }}">&raquo;</a></li>
+                            {% else %}
+                                <li class="page-item disabled"><span>&raquo;</span></li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                {% endif %}
+            <div class="form-group">
+                {% for i in clientes.paginator.page_range %}
+                    {% if clientes.number == i %}
+                        <p>Página: {{ i }} de {{ clientes.paginator.num_pages }}</p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <!-- Fim Paginação -->
+            </div>
+        </div>
+    </div>
+{% endblock %}

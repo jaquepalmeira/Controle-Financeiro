@@ -1,0 +1,125 @@
+{% load static %}
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Jquery -->
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+    <!-- UTILS JS -->
+    <script src="{% static 'js/utils.js' %}"></script>
+
+    <!-- FONTS -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+<!-- Static navbar -->
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">SG-FIN</a>
+        </div>
+
+        <!-- Dropdown Cadastro -->
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cadastro <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'controle_fin:pesquisar_banco' %}">Banco</a></li>
+                        <li><a href="{% url 'controle_fin:pesquisar_agencia' %}">Agência</a></li>
+                        <li><a href="{% url 'controle_fin:pesquisar_cliente' %}">Cliente</a></li>
+{#                        <li role="separator" class="divider"></li>#}
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- Dropdown Lançamentos -->
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Lançamentos <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'controle_fin:pesquisar_tipo_lancamento' %}">Tipo de Lançamento</a></li>
+                        <li><a href="{% url 'controle_fin:pesquisar_lancamento' %}">Lançamentos</a></li>
+                        <li><a href="#">Cargo</a></li>
+{#                        <li role="separator" class="divider"></li>#}
+                        <li><a href="#">Funcionario</a></li>
+                        <li><a href="#">Veiculo</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- Dropdown Ordem de Serviço -->
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ordem de Serviço <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Criar OS - Manutenção de Veiculo</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="active"><a href="./">Default <span class="sr-only">(current)</span></a></li>
+                <li><a href="../navbar-static-top/">Static top</a></li>
+                <li><a href="../navbar-fixed-top/">Fixed top</a></li>
+            </ul>
+
+        </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+</nav>
+
+{% block content %}
+{% endblock %}
+
+{% block modals %}
+    {% include 'modal/modal_confirm_save.html' %}
+{% endblock %}
+</body>
+{#<script type="text/javascript">#}
+{#    $(document).on('submit', '#cadastroForm', function (e) {#}
+{#    e.preventDefault();#}
+{##}
+{#    $.ajax({#}
+{#        type: 'POST',#}
+{#        url: '/cadastro-banco/',#}
+{#        data:{#}
+{#            codigo: $('#id_codigo').val(),#}
+{#            nome_banco: $('#id_nome_banco').val(),#}
+{#            status: $('#id_status'),#}
+{#            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()#}
+{#        },#}
+{#        success: function (response) {#}
+{#            alert("Salvei essa bosta");#}
+{##}
+{#        }#}
+{#    })#}
+{#});#}
+{#</script>#}
+</html>
