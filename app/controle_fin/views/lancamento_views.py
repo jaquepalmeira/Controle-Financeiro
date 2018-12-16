@@ -1,10 +1,8 @@
-from datetime import date, datetime
+from datetime import datetime
 from django.shortcuts import render, redirect, get_object_or_404
 from app.controle_fin.forms.lancamento_forms import LancamentoForm
-from app.controle_fin.models.lancamento_models import Lancamento, \
-    StatusLancamento
+from app.controle_fin.models.lancamento_models import Lancamento
 from app.controle_fin.utils.utils import paginattion_create
-
 
 
 def cadastrar_lancamento(request):
@@ -27,7 +25,7 @@ def editar_lancamento(request, pk):
             return redirect('controle_fin:pesquisar_lancamento')
     else:
         form = LancamentoForm(instance=lancamento)
-        return render(request, 'lacamento/editar_lancamento.html', {'form': form})
+        return render(request, 'lacamento/editar_lancamento.html', {'form': form, 'lancamento': lancamento})
 
 
 def excluir_lancamento(request, pk):
@@ -59,8 +57,23 @@ def listar_lancamentos(request):
     query_data_inicial = request.GET.get('data_inicial')
     query_data_final = request.GET.get('data_final')
 
-    if query_data_inicial or query_data_final:
-        total_lancamentos_list = total_lancamentos_list.filter(data_vencimento__range=(query_data_inicial, query_data_final))
+    if query_data_inicial and query_data_final:
+        format_str = '%d/%m/%Y'  # Formato atual
+        data_inicial = datetime.strptime(query_data_inicial, format_str)
+        data_final = datetime.strptime(query_data_final, format_str)
+        total_lancamentos_list = total_lancamentos_list.filter(data_vencimento__range=(data_inicial, data_final))
+        lancamentos = paginattion_create(total_lancamentos_list, reg_per_page, request)
+        return render(request, 'lacamento/listar_faturar_lancamento.html', {'lancamentos': lancamentos})
+    elif query_data_inicial and not query_data_final:
+        format_str = '%d/%m/%Y'  # Formato atual
+        data_inicial = datetime.strptime(query_data_inicial, format_str)
+        total_lancamentos_list = total_lancamentos_list.filter(data_vencimento__gte=data_inicial)
+        lancamentos = paginattion_create(total_lancamentos_list, reg_per_page, request)
+        return render(request, 'lacamento/listar_faturar_lancamento.html', {'lancamentos': lancamentos})
+    elif not query_data_inicial and query_data_final:
+        format_str = '%d/%m/%Y'  # Formato atual
+        data_final = datetime.strptime(query_data_final, format_str)
+        total_lancamentos_list = total_lancamentos_list.filter(data_vencimento__lte=data_final)
         lancamentos = paginattion_create(total_lancamentos_list, reg_per_page, request)
         return render(request, 'lacamento/listar_faturar_lancamento.html', {'lancamentos': lancamentos})
 
@@ -69,11 +82,12 @@ def listar_lancamentos(request):
 
 def faturar_lancamento(request, pk):
     lancamento = get_object_or_404(Lancamento, pk=pk)
-    query_data_pagamento = request.GET.get('data_vencimento')
-    # data_pagamento = datetime.strptime(query_data_pagamento, "%d/%m/%y")
 
     if request.method == 'POST':
-        Lancamento.objects.filter(pk=pk).update(data_pagamento=query_data_pagamento)
+        query_data_pagamento = request.POST.get('data_pagamento')
+        format_str = '%d/%m/%Y'  # Formato atual
+        data_pagamento = datetime.strptime(query_data_pagamento, format_str)
+        Lancamento.objects.filter(pk=pk).update(data_pagamento=data_pagamento)
         Lancamento.objects.filter(pk=pk).update(status_lancamento_id=3)
         return redirect('controle_fin:listar_lancamento')
 

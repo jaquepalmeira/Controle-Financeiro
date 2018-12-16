@@ -48,7 +48,6 @@
                         <th class="text-center">Descrição</th>
                         <th class="text-center">Valor</th>
                         <th class="text-center">Data de Vencimento</th>
-                        <th class="text-center">Data do Pagamento</th>
                         <th class="text-center">Faturar</th>
                     </tr>
                     </thead>
@@ -60,7 +59,6 @@
                             <td>{{ lancamento.descricao }}</td>
                             <td class="text-center"><strong>R$</strong>     {{ lancamento.valor }}</td>
                             <td>{{ lancamento.data_vencimento }}</td>
-                            <td>{{ lancamento.data_pagamento }}</td>
                             <td class="text-center">
                                 <a class="btn btn-sm btn-info" href="{% url 'controle_fin:faturar_lancamento' pk=lancamento.pk %}">
                                     <span class="glyphicon glyphicon-share text-center"></span>
