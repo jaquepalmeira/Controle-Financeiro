@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 from django.urls import path
 from SGFIN.settings import base
 from app.controle_fin.views import agencia_views, cliente_views, \
-    tipo_lancamento_views, lancamento_views
+    tipo_lancamento_views, lancamento_views, relatorio_views
 from .views import banco_views
 
 app_name = 'controle_fin'
@@ -37,4 +37,6 @@ urlpatterns = [
     # Faturar Lancamentos
     url(r'^listar-lancamentos/$', lancamento_views.listar_lancamentos, name='listar_lancamento'),
     url(r'^faturar/(?P<pk>[0-9]+)/lancamento/$', lancamento_views.faturar_lancamento, name='faturar_lancamento'),
+    # relatórios
+    url(r'^relatorio-lancamentos-faturados/$', relatorio_views.lacamentos_faturados, name='relatorio_lancamento_faturado'),
 ]

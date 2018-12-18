@@ -68,20 +68,20 @@
                         <li><a href="{% url 'controle_fin:pesquisar_tipo_lancamento' %}">Tipo de Lançamento</a></li>
                         <li><a href="{% url 'controle_fin:pesquisar_lancamento' %}">Lançamentos</a></li>
                         <li><a href="{% url 'controle_fin:listar_lancamento' %}">Faturar Lançamentos</a></li>
-                        <li><a href="#">Cargo</a></li>
+{#                        <li><a href="#">Cargo</a></li>#}
 {#                        <li role="separator" class="divider"></li>#}
-                        <li><a href="#">Funcionario</a></li>
-                        <li><a href="#">Veiculo</a></li>
+{#                        <li><a href="#">Funcionario</a></li>#}
+{#                        <li><a href="#">Veiculo</a></li>#}
                     </ul>
                 </li>
             </ul>
 
-            <!-- Dropdown Ordem de Serviço -->
+            <!-- Dropdown Relaórios -->
             <ul class="nav navbar-nav">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ordem de Serviço <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Relatórios <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Criar OS - Manutenção de Veiculo</a></li>
+                        <li><a href="{% url 'controle_fin:relatorio_lancamento_faturado' %}">Lançamentos Faturados</a></li>
                     </ul>
                 </li>
             </ul>
