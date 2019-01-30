@@ -21,30 +21,52 @@ def cadastrar_banco(request):
 
 
 def pesquisar_banco(request):
-    reg_per_page = 10
+    reg_per_page = 5
     all_bancos_list = Banco.objects.order_by('id')
-
     all_bancos = paginattion_create(all_bancos_list, reg_per_page, request)
 
     query_codigo = request.GET.get('codigo')
     query_nome = request.GET.get('nome_banco')
+
+    if query_codigo is None:
+        query_codigo = ''
+
+    if query_nome is None:
+        query_nome = ''
+
     if query_codigo and query_nome:
         all_bancos_list = all_bancos_list.filter(codigo__icontains=query_codigo)|all_bancos_list.filter(nome_banco__icontains=query_nome)
         all_bancos = paginattion_create(all_bancos_list, reg_per_page, request)
-        return render(request, 'banco/pesquisar_banco.html',
-                      {'bancos': all_bancos})
+        return render(request, 'banco/pesquisar_banco.html', {
+            'bancos': all_bancos,
+            'query_codigo': query_codigo,
+            'query_nome': query_nome
+        })
+
     if query_nome or query_codigo:
         if query_codigo:
             all_bancos_list = all_bancos_list.filter(codigo__icontains=query_codigo)
             all_bancos = paginattion_create(all_bancos_list, reg_per_page, request)
+            return render(request, 'banco/pesquisar_banco.html', {
+                'bancos': all_bancos,
+                'query_codigo': query_codigo,
+                'query_nome': query_nome
+            })
 
-            return render(request, 'banco/pesquisar_banco.html', {'bancos': all_bancos})
         else:
             all_bancos_list = all_bancos_list.filter(nome_banco__icontains=query_nome)
             all_bancos = paginattion_create(all_bancos_list, reg_per_page, request)
-            return render(request, 'banco/pesquisar_banco.html', {'bancos': all_bancos})
+            return render(request, 'banco/pesquisar_banco.html', {
+                'bancos': all_bancos,
+                'query_codigo': query_codigo,
+                'query_nome': query_nome
+            })
 
-    return render(request, 'banco/pesquisar_banco.html', {'bancos': all_bancos})
+    return render(request, 'banco/pesquisar_banco.html', {
+        'bancos': all_bancos,
+        'query_codigo': query_codigo,
+        'query_nome': query_nome
+    })
 
 
 def editar_banco(request, pk):
