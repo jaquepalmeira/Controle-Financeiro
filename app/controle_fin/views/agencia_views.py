@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from SGFIN.settings.base import n_page
 from app.controle_fin.forms.agencia_forms import AgenciaForm
 from app.controle_fin.models.agencia_models import Agencia
 from app.controle_fin.models.banco_models import Banco
@@ -37,7 +38,7 @@ def excluir_agencia(request, pk):
 
 
 def pesquisar_agencia(request):
-    reg_per_page = 10
+    reg_per_page = n_page
     all_agencia_list = Agencia.objects.order_by('id')
     all_agencia = paginattion_create(all_agencia_list, reg_per_page, request)
 

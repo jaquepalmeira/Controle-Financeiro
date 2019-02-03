@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from SGFIN.settings.base import n_page
 from app.controle_fin.forms.banco_form import CadastroBancoForm
 from app.controle_fin.models.banco_models import Banco
 from app.controle_fin.utils.utils import paginattion_create
@@ -21,7 +22,7 @@ def cadastrar_banco(request):
 
 
 def pesquisar_banco(request):
-    reg_per_page = 5
+    reg_per_page = n_page
     all_bancos_list = Banco.objects.order_by('id')
     all_bancos = paginattion_create(all_bancos_list, reg_per_page, request)
 

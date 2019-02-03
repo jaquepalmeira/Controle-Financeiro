@@ -1,5 +1,6 @@
 from datetime import datetime
 from django.shortcuts import render, redirect, get_object_or_404
+from SGFIN.settings.base import n_page
 from app.controle_fin.forms.lancamento_forms import LancamentoForm
 from app.controle_fin.models.lancamento_models import Lancamento
 from app.controle_fin.utils.utils import paginattion_create
@@ -35,7 +36,7 @@ def excluir_lancamento(request, pk):
 
 
 def pesquisar_lancamento(request):
-    reg_per_page = 10
+    reg_per_page = n_page
     total_lancamentos_list = Lancamento.objects.order_by('id')
     lancamentos = paginattion_create(total_lancamentos_list, reg_per_page, request)
 

@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from SGFIN.settings.base import n_page
 from app.controle_fin.forms.cliente_forms import ClienteForm
 from app.controle_fin.models.cliente_models import Cliente
 from app.controle_fin.utils.utils import paginattion_create
@@ -34,7 +35,7 @@ def excluir_cliente(request, pk):
 
 
 def pesquisar_cliente(request):
-    reg_per_page = 10
+    reg_per_page = n_page
     total_clientes_list = Cliente.objects.order_by('id')
     clientes = paginattion_create(total_clientes_list, reg_per_page, request)
 
@@ -44,16 +45,29 @@ def pesquisar_cliente(request):
     if query_email and query_nome:
         total_clientes_list = total_clientes_list.filter(email__icontains=query_email) | total_clientes_list.filter(nome__icontains=query_nome)
         clientes = paginattion_create(total_clientes_list, reg_per_page, request)
-        return render(request, 'cliente/pesquisar_cliente.html', {'clientes': clientes})
+        return render(request, 'cliente/pesquisar_cliente.html', {
+            'clientes': clientes,
+            'query_email': query_email,
+            'query_nome': query_nome
+        })
 
     if query_email or query_nome:
         if query_email:
             total_clientes_list = total_clientes_list.filter(email__icontains=query_email)
             clientes = paginattion_create(total_clientes_list, reg_per_page, request)
-            return render(request, 'cliente/pesquisar_cliente.html', {'clientes': clientes})
+            return render(request, 'cliente/pesquisar_cliente.html', {
+                'clientes': clientes,
+                'query_email': query_email,
+                'query_nome': query_nome
+            })
+
         else:
             total_clientes_list = total_clientes_list.filter(nome__icontains=query_nome)
             clientes = paginattion_create(total_clientes_list, reg_per_page, request)
-            return render(request, 'cliente/pesquisar_cliente.html', {'clientes': clientes})
+            return render(request, 'cliente/pesquisar_cliente.html', {
+                'clientes': clientes,
+                'query_email': query_email,
+                'query_nome': query_nome
+            })
 
     return render(request, 'cliente/pesquisar_cliente.html', {'clientes': clientes})

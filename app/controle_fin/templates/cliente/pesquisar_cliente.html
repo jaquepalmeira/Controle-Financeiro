@@ -84,7 +84,7 @@
                         <ul class="pagination">
                             {% if clientes.has_previous %}
                                 <li class="page-item">
-                                    <a class="page-link" aria-label="Previous" href="?page={{ clientes.previous_page_number }}">
+                                    <a class="page-link" aria-label="Previous" href="?page={{ clientes.previous_page_number }}&nome={{ query_nome }}&email={{ query_email }}">
                                         <span aria-hidden="true">&laquo;</span>
                                         <span class="sr-only">Previous</span>
                                     </a>
@@ -100,11 +100,11 @@
                                         </a>
                                     </li>
                                 {% else %}
-                                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                    <li class="page-item"><a class="page-link" href="?page={{ i }}&nome={{ query_nome }}&email={{ query_email }}">{{ i }}</a></li>
                                 {% endif %}
                             {% endfor %}
                             {% if clientes.has_next %}
-                                <li class="page-item"><a class="page-link" href="?page={{ clientes.next_page_number }}">&raquo;</a></li>
+                                <li class="page-item"><a class="page-link" href="?page={{ clientes.next_page_number }}&nome={{ query_nome }}&email={{ query_email }}">&raquo;</a></li>
                             {% else %}
                                 <li class="page-item disabled"><span>&raquo;</span></li>
                             {% endif %}

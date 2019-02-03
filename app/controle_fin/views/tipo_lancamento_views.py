@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from SGFIN.settings.base import n_page
 from app.controle_fin.forms.tipo_lancamento_forms import TipoLancamentoForm
 from app.controle_fin.models.tipo_lancamento_models import TipoLancamento
 from app.controle_fin.utils.utils import paginattion_create
@@ -34,7 +35,7 @@ def excluir_tipo_lancamento(request, pk):
 
 
 def pesquisar_tipo_lancamento(request):
-    reg_per_page = 10
+    reg_per_page = n_page
     total_tp_despesa_list = TipoLancamento.objects.order_by('id')
     tp_despesas = paginattion_create(total_tp_despesa_list, reg_per_page, request)
 
